@@ -37,9 +37,13 @@ $mail = new PHPMailer(true);
     $mail->Body    = $email_template;
     $mail->AltBody = 'Verify your email address to complete the registration.';
 
-    $mail->send();
-    echo 'Message has been sent';
-
+    try {
+        $mail->send();
+        return true;    
+    } catch (Exception $e) {
+        return false;
+    }
+   
 }
 
 if (isset($_POST['register_btn'])) {
