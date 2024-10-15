@@ -36,7 +36,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                     </a>
                                 </li>
                                 <?php  endif ?>
-                                
+
                                 <?php if(isset($_SESSION['authenticated'])) :?>
                                 <li class="nav-item">
                                     <a class="nav-link <?php if ($current_page == 'logout.php') echo 'active'; ?>" href="logout.php">
@@ -62,6 +62,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     .navbar-dark .navbar-brand {
         color: #fff;
         font-weight: bold;
+        font-size: 2rem;
     }
 
     .navbar-dark .nav-link {
@@ -86,6 +87,42 @@ $current_page = basename($_SERVER['PHP_SELF']);
     @media (min-width: 992px) {
         .navbar {
             padding: 1.5rem 0;
+
         }
+
     }
+    /* Girly color gradient for the navbar */
+.bg-primary-gradient {
+    background: linear-gradient(45deg, #ffb6c1, #ff69b4, #ff1493, #ff7f50); /* Soft pink to coral */
+    padding: 1rem 0;
+}
+
+/* Navbar brand in girly colors */
+.navbar-dark .navbar-brand {
+    color: #fff;
+    font-weight: bold;
+    font-family: 'Brush Script MT', cursive; /* Optional: playful font */
+}
+
+/* Navbar link colors for girly theme */
+.navbar-dark .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.3s ease;
+    font-family: 'Comic Sans MS', sans-serif; /* Optional: playful font */
+}
+
+.navbar-dark .nav-link:hover {
+    color: #fff0f5; /* Lavender blush on hover */
+}
+
+.navbar-dark .nav-link.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+/* Toggler icon color for girly theme */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 </style>

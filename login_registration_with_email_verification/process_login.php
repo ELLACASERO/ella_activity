@@ -35,7 +35,7 @@ if (isset($_POST['login_btn'])) {
                     'phone' => $row['phone'],
                     'email' => $row['email'],
                 ];
-                $_SESSION['status'] = "You are Logged In Successfully.!";
+                $_SESSION['status'] = "You are Logged In Successfully!";
                 header("Location: dashboard.php");
                 exit(0);
 
