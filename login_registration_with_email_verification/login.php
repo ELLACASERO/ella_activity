@@ -1,5 +1,20 @@
 <?php 
 session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
+if (isset($_SESSION['authenticated'])) {
+    
+    $_SESSION['status'] = "You are already Logged In.";
+    header('Location: dashboard.php');
+    exit(0);
+
+}
+
+
 $page_title = "Login Form";
 include('includes/header.php');
 include('includes/navbar.php');
@@ -41,6 +56,10 @@ include('includes/navbar.php');
                             <!-- Submit Button -->
                             <div class="form-group text-center">
                                 <button type="submit" name="login_btn" class="btn btn-primary w-100">Login</button> 
+                            </div>
+
+                            <div class="form-group text-center mt-3">
+                                <p>Don't have an account yet? <a href="register.php">Sign Up</a></p>
                             </div>
                         </form>
                     </div>

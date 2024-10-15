@@ -12,14 +12,23 @@ function sendemail_verify($name, $email, $verify_token) {
 $mail = new PHPMailer(true);
 
     //Server settings
-    $mail->SMTPDebug = 3;                      //Enable verbose debug output
+    //$mail->SMTPDebug = 3;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'ellaanana49@gmail.com';                     //SMTP username
     $mail->Password   = 'eelq yjcu qcoj ehys';                               //SMTP password
     $mail->SMTPSecure = "ssl";            
-    $mail->Port       = 465;                                  
+    $mail->Port       = 465;  
+    
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+    
 
     //Recipients
     $mail->setFrom('ellaanana49@gmail.com', 'Ella');

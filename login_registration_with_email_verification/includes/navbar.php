@@ -24,6 +24,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                         <i class="fas fa-tachometer-alt"></i> Dashboard
                                     </a>
                                 </li>
+                                <?php if(!isset($_SESSION['authenticated'])) :?>
                                 <li class="nav-item">
                                     <a class="nav-link <?php if ($current_page == 'register.php') echo 'active'; ?>" href="register.php">
                                         <i class="fas fa-user-plus"></i> Sign up
@@ -34,6 +35,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                         <i class="fas fa-sign-in-alt"></i> Login
                                     </a>
                                 </li>
+                                <?php  endif ?>
+                                
+                                <?php if(isset($_SESSION['authenticated'])) :?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?php if ($current_page == 'logout.php') echo 'active'; ?>" href="logout.php">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                                <?php  endif ?>
                             </ul>
                         </div>
                     </div>

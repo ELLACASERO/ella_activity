@@ -82,6 +82,9 @@ include('includes/navbar.php');
                             <div class="form-group text-center">
                                 <button type="submit" name="register_btn" class="btn btn-primary w-100">Register</button> 
                             </div>
+                            <div class="form-group text-center mt-3">
+                                <p>Already have an account? <a href="login.php">Login</a></p>
+                            </div>
                         </form>
                     </div>
                 </div>
