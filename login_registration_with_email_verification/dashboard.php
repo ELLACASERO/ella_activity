@@ -36,7 +36,6 @@ include('includes/navbar.php');
 
 /* Card styles */
 .card {
-    border: 2px solid #ff69b4; /* Pink border for the card */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 105, 180, 0.2); /* Soft pink shadow */
 }
@@ -45,23 +44,16 @@ include('includes/navbar.php');
     background-color: #ff1493; /* Deep pink for card header */
     color: white;
     font-weight: bold;
-    font-family: 'Comic Sans MS', sans-serif; /* Optional playful font */
-    border-bottom: 2px solid #ff69b4;
-    text-align: center;
-}
 
 .card-body {
     background-color: #fff0f5; /* Lavender blush for the card body */
     color: #ff69b4; /* Pink text color */
-    font-weight: bold;
-    font-family: Arial, sans-serif;
-    padding: 20px;
 }
 
-/* Style for user information */
-h5 {
-    color: #ff69b4; /* Pink for user info text */
-    font-family: 'Comic Sans MS', sans-serif;
+/* Info Cards */
+.info-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+    background: rgba(255, 182, 193, 0.8); /* Soft pink with transparency */
 }
 
 /* Alert message styling */
