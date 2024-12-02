@@ -1,29 +1,49 @@
-<?php 
+<?php  
 if (isset($_SESSION['status'])) {
     $statusMessage = $_SESSION['status'];
     $alertType = 'info'; // Default alert type for SweetAlert
 
     // Determine the SweetAlert icon type based on the status message
-    if (strpos($statusMessage, 'successfully') !== false) {
+    if (stripos($statusMessage, 'successfully') !== false) {
         $alertType = 'success';
-    } elseif (strpos($statusMessage, 'Failed') !== false) {
+    } elseif (stripos($statusMessage, 'Failed') !== false) {
         $alertType = 'error';
-    } elseif (strpos($statusMessage, 'already verified') !== false) {
+    } elseif (stripos($statusMessage, 'already verified') !== false) {
         $alertType = 'warning';
     }
 
-    // Generate the SweetAlert JavaScript code
-    echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
+    // Generate the SweetAlert JavaScript code for the status
+    echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
-                icon: '$alertType',
-                title: 'Alert',
-                text: '$statusMessage',
-                confirmButtonColor: '#ff69b4' // Optional: Use a custom pink button color
+                icon: "' . htmlspecialchars($alertType, ENT_QUOTES, 'UTF-8') . '",
+                title: "Alert",
+                text: "' . htmlspecialchars($statusMessage, ENT_QUOTES, 'UTF-8') . '",
+                confirmButtonColor: "#ff69b4" // Optional: Use a custom pink button color
             });
         });
-    </script>";
+    </script>';
 
     unset($_SESSION['status']);
+}
+
+// Add the Welcome Back Message
+if (!isset($_SESSION['welcome_shown']) || $_SESSION['welcome_shown'] !== true) {
+    
+    $name = isset($_SESSION['name']) ? $_SESSION['name'] : 'User';
+
+    // Generate the SweetAlert JavaScript code for the welcome back message
+    echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                icon: "success",
+                title: "Welcome Back!",
+                text: "Hello, ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '! We are glad to see you again.",
+                confirmButtonColor: "#ff69b4"
+            });
+        });
+    </script>';
+
+    $_SESSION['welcome_shown'] = true; // Prevent showing the message repeatedly
 }
 ?>
