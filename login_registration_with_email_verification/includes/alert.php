@@ -1,28 +1,29 @@
-<div class="alert">
-    <?php 
-    if (isset($_SESSION['status'])) {
-        // Set the alert type and icon based on the status message
-        $alertType = 'info'; // Default to info
-        $icon = '<i class="fas fa-info-circle"></i>';
+<?php 
+if (isset($_SESSION['status'])) {
+    $statusMessage = $_SESSION['status'];
+    $alertType = 'info'; // Default alert type for SweetAlert
 
-        if (strpos($_SESSION['status'], 'successfully') !== false) {
-            $alertType = 'success';
-            $icon = '<i class="fas fa-check-circle"></i>';
-        } elseif (strpos($_SESSION['status'], 'Failed') !== false) {
-            $alertType = 'danger';
-            $icon = '<i class="fas fa-times-circle"></i>';
-        } elseif (strpos($_SESSION['status'], 'already verified') !== false) {
-            $alertType = 'warning';
-            $icon = '<i class="fas fa-exclamation-circle"></i>';
-        }
-
-        // Display the alert
-        echo '<div class="alert alert-' . $alertType . ' alert-dismissible fade show" role="alert">';
-        echo $icon . ' ' . $_SESSION['status'];
-        echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-        echo '</div>';
-
-        unset($_SESSION['status']);
+    // Determine the SweetAlert icon type based on the status message
+    if (strpos($statusMessage, 'successfully') !== false) {
+        $alertType = 'success';
+    } elseif (strpos($statusMessage, 'Failed') !== false) {
+        $alertType = 'error';
+    } elseif (strpos($statusMessage, 'already verified') !== false) {
+        $alertType = 'warning';
     }
-    ?>
-</div>
+
+    // Generate the SweetAlert JavaScript code
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: '$alertType',
+                title: 'Alert',
+                text: '$statusMessage',
+                confirmButtonColor: '#ff69b4' // Optional: Use a custom pink button color
+            });
+        });
+    </script>";
+
+    unset($_SESSION['status']);
+}
+?>

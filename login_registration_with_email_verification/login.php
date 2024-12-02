@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 if (isset($_SESSION['authenticated'])) {
     
-    $_SESSION['status'] = "You are already Logged In.";
+    $_SESSION['status'] = "Yippee! You’re already in your happy place!";
     header('Location: dashboard.php');
     exit(0);
 
@@ -57,10 +57,11 @@ include('includes/navbar.php');
                             <div class="form-group text-center">
                                 <button type="submit" name="login_btn" class="btn btn-primary w-100">Login</button> 
                             </div>
-
+                        
                             <div class="form-group text-center mt-3">
                                 <p>Don't have an account yet? <a href="register.php">Sign Up</a></p>
                             </div>
+
                         </form>
                     </div>
                 </div>
