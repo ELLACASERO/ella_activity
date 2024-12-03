@@ -236,11 +236,14 @@ include('includes/navbar.php');
 <script>
     // Initialize DataTables
     $(document).ready(function () {
-        $('#skMembersTable').DataTable();
+        $('#skMembersTable').DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            info: true
+        });
     });
-</script>
 
-<script>
     // Search function for filtering SK Members
     function searchTable() {
         let input = document.getElementById('searchBox');
@@ -251,20 +254,17 @@ include('includes/navbar.php');
         for (let i = 1; i < rows.length; i++) {
             let cells = rows[i].getElementsByTagName('td');
             let found = false;
-            
-            for (let j = 0; j < cells.length - 1; j++) {
+
+            for (let j = 0; j < cells.length - 1; j++) {  // Exclude the last column (Actions)
                 if (cells[j].textContent.toLowerCase().includes(filter)) {
                     found = true;
                 }
             }
 
-            if (found) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
-            }
+            rows[i].style.display = found ? "" : "none";
         }
     }
 </script>
+
 
 <?php include('includes/footer.php'); ?>
