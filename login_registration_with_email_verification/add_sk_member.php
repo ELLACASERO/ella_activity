@@ -1,8 +1,45 @@
-<?php 
+<?php  
 include('authentication.php');
 include('includes/header.php');
 include('includes/navbar.php');
+include('db.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_sk_member'])) {
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $position = mysqli_real_escape_string($conn, $_POST['position']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    $query = "INSERT INTO sk_members (name, position, phone, email) VALUES ('$name', '$position', '$phone', '$email')";
+    if (mysqli_query($conn, $query)) {
+        $_SESSION['status'] = "SK Member Added Successfully";
+        echo '<script>
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "SK Member Added Successfully",
+                confirmButtonColor: "#ff69b4"
+            }).then(() => {
+                window.location.href = "dashboard.php";
+            });
+        </script>';
+    } else {
+        $_SESSION['status'] = "SK Member Not Added";
+        echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "SK Member Not Added",
+                confirmButtonColor: "#d33"
+            }).then(() => {
+                window.location.href = "add_sk_member.php";
+            });
+        </script>';
+    }
+}
 ?>
+
+
 
 <div class="content-wrapper">
     <div class="floating-container">
@@ -11,7 +48,7 @@ include('includes/navbar.php');
                 <h5 class="mb-0 text-center">Add New SK Member</h5>
             </div>
             <div class="card-body bg-light-pink">
-                <form action="save_sk_member.php" method="POST">
+                <form action="" method="POST">
                     <div class="form-group mb-3">
                         <label for="name" class="form-label">Full Name</label>
                         <div class="input-group">

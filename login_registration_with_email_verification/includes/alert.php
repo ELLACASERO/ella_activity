@@ -1,4 +1,4 @@
-<?php  
+<?php 
 if (isset($_SESSION['status'])) {
     $statusMessage = $_SESSION['status'];
     $alertType = 'info'; // Default alert type for SweetAlert
@@ -12,7 +12,7 @@ if (isset($_SESSION['status'])) {
         $alertType = 'warning';
     }
 
-    // Generate the SweetAlert JavaScript code for the status
+    // Generate the SweetAlert JavaScript code
     echo '<script>
         document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
@@ -27,23 +27,5 @@ if (isset($_SESSION['status'])) {
     unset($_SESSION['status']);
 }
 
-// Add the Welcome Back Message
-if (!isset($_SESSION['welcome_shown']) || $_SESSION['welcome_shown'] !== true) {
-    
-    $name = isset($_SESSION['name']) ? $_SESSION['name'] : 'User';
 
-    // Generate the SweetAlert JavaScript code for the welcome back message
-    echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Swal.fire({
-                icon: "success",
-                title: "Welcome Back!",
-                text: "Hello, ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '! We are glad to see you again.",
-                confirmButtonColor: "#ff69b4"
-            });
-        });
-    </script>';
-
-    $_SESSION['welcome_shown'] = true; // Prevent showing the message repeatedly
-}
 ?>

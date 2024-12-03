@@ -58,7 +58,10 @@ include('includes/navbar.php');
                                     <div class="card-header">
                                         <h5>SK Management</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body"> 
+                                        <!-- Search Bar -->
+                                        <input type="text" id="searchBox" class="form-control mb-3" placeholder="Search SK Members..." onkeyup="searchTable()">
+
                                         <a href="add_sk_member.php" class="btn btn-primary mb-3">Add New SK Member</a>
                                         <table class="table table-bordered table-hover" id="skMembersTable">
                                             <thead>
@@ -89,10 +92,43 @@ include('includes/navbar.php');
                                                             <td><?= $row['email']; ?></td>
                                                             <td>
                                                                 <a href="edit_sk_member.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                                                <form action="delete_sk_member.php" method="POST" style="display:inline;">
-                                                                    <input type="hidden" name="delete_id" value="<?= $row['id']; ?>">
-                                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                                </form>
+                                                                <button class="btn btn-danger btn-sm delete-btn" data-id="<?= $row['id']; ?>">Delete</button>
+                                                                                                                            
+                                                                <script>
+                                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                                    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+                                                                    deleteButtons.forEach(button => {
+                                                                        button.addEventListener('click', function() {
+                                                                            const memberId = this.getAttribute('data-id');
+
+                                                                            Swal.fire({
+                                                                                title: 'Are you sure?',
+                                                                                text: "You won't be able to revert this!",
+                                                                                icon: 'warning',
+                                                                                showCancelButton: true,
+                                                                                confirmButtonColor: '#ff69b4',
+                                                                                cancelButtonColor: '#d33',
+                                                                                confirmButtonText: 'Yes, delete it!',
+                                                                                cancelButtonText: 'Cancel'
+                                                                            }).then((result) => {
+                                                                                if (result.isConfirmed) {
+                                                                                    if (memberId) {
+                                                                                        window.location.href = 'delete_sk_member.php?id=' + memberId;
+                                                                                    } else {
+                                                                                        Swal.fire({
+                                                                                            icon: 'error',
+                                                                                            title: 'Error',
+                                                                                            text: 'No member ID found for deletion.'
+                                                                                        });
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                        });
+                                                                    });
+                                                                });
+                                                                </script>
+
                                                             </td>
                                                         </tr>
                                                         <?php
@@ -196,11 +232,39 @@ include('includes/navbar.php');
     background-color: rgba(255, 182, 193, 0.2); /* Light pink hover effect */
 }
 </style>
+
 <script>
     // Initialize DataTables
     $(document).ready(function () {
         $('#skMembersTable').DataTable();
     });
+</script>
+
+<script>
+    // Search function for filtering SK Members
+    function searchTable() {
+        let input = document.getElementById('searchBox');
+        let filter = input.value.toLowerCase();
+        let table = document.getElementById('skMembersTable');
+        let rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName('td');
+            let found = false;
+            
+            for (let j = 0; j < cells.length - 1; j++) {
+                if (cells[j].textContent.toLowerCase().includes(filter)) {
+                    found = true;
+                }
+            }
+
+            if (found) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
 </script>
 
 <?php include('includes/footer.php'); ?>

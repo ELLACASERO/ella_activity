@@ -4,6 +4,42 @@ include('db.php');
 include('includes/header.php');
 include('includes/navbar.php');
 
+if (isset($_POST['update_sk_member'])) {
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $position = mysqli_real_escape_string($conn, $_POST['position']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+
+    $query = "UPDATE sk_members SET name='$name', position='$position', phone='$phone', email='$email' WHERE id='$id'";
+
+    if (mysqli_query($conn, $query)) {
+        $_SESSION['status'] = "SK Member Updated Successfully";
+        echo '<script>
+                Swal.fire({
+                    icon: "success",
+                    title: "Updated",
+                    text: "SK Member Updated Successfully!",
+                    confirmButtonColor: "#ff69b4"
+                }).then(() => {
+                    window.location.href = "dashboard.php";
+                });
+              </script>';
+    } else {
+        $_SESSION['status'] = "Failed to Update SK Member";
+        echo '<script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Failed to Update SK Member",
+                    confirmButtonColor: "#ff1493"
+                }).then(() => {
+                    window.location.href = "edit_sk_member.php?id='.$id.'";
+                });
+              </script>';
+    }
+}
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -14,8 +50,16 @@ if (isset($_GET['id'])) {
         $row = mysqli_fetch_array($query_run);
     } else {
         $_SESSION['status'] = "No Member Found with ID: $id";
-        header("Location: dashboard.php");
-        exit(0);
+        echo '<script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "No Member Found with this ID",
+                    confirmButtonColor: "#ff1493"
+                }).then(() => {
+                    window.location.href = "dashboard.php";
+                });
+              </script>';
     }
 } else {
     $_SESSION['status'] = "No ID Provided";
@@ -31,7 +75,7 @@ if (isset($_GET['id'])) {
                 <h5 class="mb-0 text-center">Edit SK Member</h5>
             </div>
             <div class="card-body bg-light-pink">
-                <form action="update_sk_member.php" method="POST">
+                <form action="" method="POST">
                     <input type="hidden" name="id" value="<?= $row['id']; ?>">
 
                     <div class="form-group mb-3">
