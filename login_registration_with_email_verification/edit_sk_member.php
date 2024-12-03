@@ -202,4 +202,5 @@ if (isset($_GET['id'])) {
     }
 
 </style>
+
 <?php include('includes/footer.php'); ?>
